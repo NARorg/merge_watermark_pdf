@@ -4,9 +4,9 @@ from PyPDF2 import PdfFileWriter, PdfFileReader
 import sys
 
 output = PdfFileWriter()
-input = PdfFileReader(open(sys.argv[1], "rb"))
-watermark = PdfFileReader(open("rdfootermag.pdf", "rb"))
-lastPage = PdfFileReader(open("mag.pdf", "rb"))
+input = PdfFileReader(open(sys.argv[1], "rb"), strict=False)
+watermark = PdfFileReader(open("./rdfootermag.pdf", "rb"))
+lastPage = PdfFileReader(open("./mag.pdf", "rb"))
 
 # print how many pages input1 has:
 #print("test.pdf has %d pages." % input.getNumPages())
@@ -19,6 +19,7 @@ for pageNum in xrange(input.getNumPages()):
 
 output.addPage(lastPage.getPage(0))
 
-outputStream = file(sys.argv[2], "wb")
+outputStream = open(sys.argv[2], "wb")
+print sys.argv[2]
 output.write(outputStream)
 outputStream.close()
